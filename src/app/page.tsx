@@ -81,6 +81,25 @@ const HeroContent = styled.div`
   padding: 2rem;
 `;
 
+const HeroLogo = styled.div`
+  margin-top: 5rem;
+  
+  img {
+    width: 400px;
+    height: 400px;
+    
+    @media (max-width: 768px) {
+      width: 300px;
+      height: 300px;
+    }
+    
+    @media (max-width: 480px) {
+      width: 250px;
+      height: 250px;
+    }
+  }
+`;
+
 const HeroTitle = styled.h1`
   font-size: 4rem;
   font-weight: bold;
@@ -329,17 +348,17 @@ export default function Home() {
 
       <HeroSection>
         <HeroContent>
-          <div style={{ marginTop: '2rem' }}>
+          <HeroLogo>
             <Image 
               src="/tiny-kolo-natury-transparent.png" 
               alt="Koło Natury Logo" 
               width={400} 
               height={400}
             />
-          </div>
+          </HeroLogo>
           <HeroTitle>Koło Natury Nowy Młyn</HeroTitle>
           <HeroSubtitle>
-            Odkryj magię wiejskiego życia w sercu natury
+            Odkryj magię prawdziwej natury w swoim sercu.
           </HeroSubtitle>
           <CTAButton>Zarezerwuj pobyt</CTAButton>
         </HeroContent>
