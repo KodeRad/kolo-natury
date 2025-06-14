@@ -2,6 +2,7 @@
 
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import Image from 'next/image';
 
 // Styled Components
 const Page = styled.div`
@@ -24,6 +25,12 @@ const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+`;
+
+const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 `;
 
 const Logo = styled.h1`
@@ -56,15 +63,16 @@ const NavLink = styled.a`
 
 const HeroSection = styled.section`
   height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%234a7c23" width="1200" height="600"/><rect fill="%236b9129" x="0" y="300" width="1200" height="300"/><circle fill="%23ffd700" cx="1000" cy="100" r="60"/><polygon fill="%232d5016" points="200,300 400,200 600,300 400,400"/><polygon fill="%232d5016" points="700,300 900,250 1100,300 900,350"/></svg>');
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+              url('/paper-background.png');
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: white;
+  color: #2d5016;
   position: relative;
 `;
 
@@ -77,7 +85,8 @@ const HeroTitle = styled.h1`
   font-size: 4rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: #2d5016;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
   
   @media (max-width: 768px) {
     font-size: 2.5rem;
@@ -87,7 +96,8 @@ const HeroTitle = styled.h1`
 const HeroSubtitle = styled.p`
   font-size: 1.5rem;
   margin-bottom: 2rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  color: #4a7c23;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
   
   @media (max-width: 768px) {
     font-size: 1.2rem;
@@ -95,7 +105,7 @@ const HeroSubtitle = styled.p`
 `;
 
 const CTAButton = styled.button`
-  background: #4a7c23;
+  background: linear-gradient(135deg, #2d5016, #4a7c23);
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -105,9 +115,24 @@ const CTAButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(74, 124, 35, 0.3);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: url('/tiny-kolo-natury-transparent.png') no-repeat center;
+    background-size: contain;
+    opacity: 0.5;
+  }
   
   &:hover {
-    background: #5d9129;
+    background: linear-gradient(135deg, #4a7c23, #6b9129);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(74, 124, 35, 0.4);
   }
@@ -125,6 +150,24 @@ const SectionTitle = styled.h2`
   margin-bottom: 3rem;
   color: #2d5016;
   font-weight: bold;
+`;
+
+const ServiceSection = styled.section`
+  background: #f8f9fa;
+  padding: 5rem 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+`;
+
+const ServiceContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
 `;
 
 const ServicesGrid = styled.div`
@@ -150,13 +193,28 @@ const ServiceCard = styled.div`
 const ServiceIcon = styled.div`
   width: 80px;
   height: 80px;
-  background: #4a7c23;
+  background: linear-gradient(135deg, #2d5016, #4a7c23);
   border-radius: 50%;
   margin: 0 auto 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2rem;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(74, 124, 35, 0.3);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background: url('/tiny-kolo-natury-transparent.png') no-repeat center;
+    background-size: contain;
+    opacity: 0.2;
+  }
 `;
 
 const ServiceTitle = styled.h3`
@@ -190,7 +248,7 @@ const Gallery = styled.div`
 
 const GalleryItem = styled.div`
   height: 200px;
-  background: linear-gradient(45deg, #4a7c23, #6b9129);
+  background: linear-gradient(45deg, #2d5016, #4a7c23, #6b9129);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -199,6 +257,20 @@ const GalleryItem = styled.div`
   font-weight: bold;
   font-size: 1.2rem;
   transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: url('/tiny-kolo-natury-transparent.png') no-repeat center;
+    background-size: contain;
+    opacity: 0.3;
+  }
   
   &:hover {
     transform: scale(1.05);
@@ -238,7 +310,15 @@ export default function Home() {
   return (
     <Page>
       <Header>
-        <Logo>Koło Natury</Logo>
+        <LogoContainer>
+          <Image 
+            src="/tiny-kolo-natury-transparent.png" 
+            alt="Koło Natury Logo" 
+            width={40} 
+            height={40}
+          />
+          <Logo>Koło Natury</Logo>
+        </LogoContainer>
         <Nav>
           <NavLink href="#about">O nas</NavLink>
           <NavLink href="#services">Usługi</NavLink>
@@ -249,6 +329,14 @@ export default function Home() {
 
       <HeroSection>
         <HeroContent>
+          <div style={{ marginTop: '2rem' }}>
+            <Image 
+              src="/tiny-kolo-natury-transparent.png" 
+              alt="Koło Natury Logo" 
+              width={400} 
+              height={400}
+            />
+          </div>
           <HeroTitle>Koło Natury Nowy Młyn</HeroTitle>
           <HeroSubtitle>
             Odkryj magię wiejskiego życia w sercu natury
@@ -267,58 +355,60 @@ export default function Home() {
         </p>
       </Section>
 
-      <Section id="services">
-        <SectionTitle>Nasze usługi</SectionTitle>
-        <ServicesGrid>
-          <ServiceCard>
-            <ServiceIcon>🏠</ServiceIcon>
-            <ServiceTitle>Komfortowe noclegi</ServiceTitle>
-            <ServiceDescription>
-              Przytulne pokoje w klimacie wiejskim z pełnym wyposażeniem i dostępem do kuchni.
-            </ServiceDescription>
-          </ServiceCard>
-          
-          <ServiceCard>
-            <ServiceIcon>🌾</ServiceIcon>
-            <ServiceTitle>Aktywności na farmie</ServiceTitle>
-            <ServiceDescription>
-              Udział w codziennych pracach gospodarskich, karmienie zwierząt, zbiór warzyw i owoców.
-            </ServiceDescription>
-          </ServiceCard>
-          
-          <ServiceCard>
-            <ServiceIcon>🥕</ServiceIcon>
-            <ServiceTitle>Ekologiczne produkty</ServiceTitle>
-            <ServiceDescription>
-              Świeże warzywa, owoce, jaja i produkty mleczne prosto z naszego gospodarstwa.
-            </ServiceDescription>
-          </ServiceCard>
-          
-          <ServiceCard>
-            <ServiceIcon>🚴</ServiceIcon>
-            <ServiceTitle>Wypożyczalnia rowerów</ServiceTitle>
-            <ServiceDescription>
-              Zwiedzaj okolicę na rowerach i odkrywaj piękne szlaki po malowniczej okolicy.
-            </ServiceDescription>
-          </ServiceCard>
-          
-          <ServiceCard>
-            <ServiceIcon>🍯</ServiceIcon>
-            <ServiceTitle>Warsztaty kulinarne</ServiceTitle>
-            <ServiceDescription>
-              Naucz się przygotowywać tradycyjne potrawy z lokalnych, sezonowych składników.
-            </ServiceDescription>
-          </ServiceCard>
-          
-          <ServiceCard>
-            <ServiceIcon>🔥</ServiceIcon>
-            <ServiceTitle>Ognisko i grill</ServiceTitle>
-            <ServiceDescription>
-              Wieczorne ogniska z pieczeniem kiełbasek i opowiadaniem historii pod gwiazdami.
-            </ServiceDescription>
-          </ServiceCard>
-        </ServicesGrid>
-      </Section>
+      <ServiceSection id="services">
+        <ServiceContainer>
+          <SectionTitle>Nasze usługi</SectionTitle>
+          <ServicesGrid>
+            <ServiceCard>
+              <ServiceIcon>🏠</ServiceIcon>
+              <ServiceTitle>Komfortowe noclegi</ServiceTitle>
+              <ServiceDescription>
+                Przytulne pokoje w klimacie wiejskim z pełnym wyposażeniem i dostępem do kuchni.
+              </ServiceDescription>
+            </ServiceCard>
+            
+            <ServiceCard>
+              <ServiceIcon>🌳</ServiceIcon>
+              <ServiceTitle>Wspaniałe miejsca na spacery</ServiceTitle>
+              <ServiceDescription>
+                Udział w codziennych pracach gospodarskich, karmienie zwierząt, zbiór warzyw i owoców.
+              </ServiceDescription>
+            </ServiceCard>
+            
+            <ServiceCard>
+              <ServiceIcon>🥕</ServiceIcon>
+              <ServiceTitle>Ekologiczne produkty</ServiceTitle>
+              <ServiceDescription>
+                Świeże warzywa, owoce, jaja i produkty mleczne prosto z naszego gospodarstwa.
+              </ServiceDescription>
+            </ServiceCard>
+            
+            <ServiceCard>
+              <ServiceIcon>🚴</ServiceIcon>
+              <ServiceTitle>Wypożyczalnia rowerów</ServiceTitle>
+              <ServiceDescription>
+                Zwiedzaj okolicę na rowerach i odkrywaj piękne szlaki po malowniczej okolicy.
+              </ServiceDescription>
+            </ServiceCard>
+            
+            <ServiceCard>
+              <ServiceIcon>🍯</ServiceIcon>
+              <ServiceTitle>Warsztaty kulinarne</ServiceTitle>
+              <ServiceDescription>
+                Naucz się przygotowywać tradycyjne potrawy z lokalnych, sezonowych składników.
+              </ServiceDescription>
+            </ServiceCard>
+            
+            <ServiceCard>
+              <ServiceIcon>🔥</ServiceIcon>
+              <ServiceTitle>Ognisko i grill</ServiceTitle>
+              <ServiceDescription>
+                Wieczorne ogniska z pieczeniem kiełbasek i opowiadaniem historii pod gwiazdami.
+              </ServiceDescription>
+            </ServiceCard>
+          </ServicesGrid>
+        </ServiceContainer>
+      </ServiceSection>
 
       <Section id="gallery">
         <SectionTitle>Galeria</SectionTitle>
