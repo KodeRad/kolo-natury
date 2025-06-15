@@ -3,6 +3,7 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 // Styled Components
 const Page = styled.div`
@@ -278,6 +279,7 @@ const GalleryItem = styled.div`
   transition: transform 0.3s ease;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
   
   &::before {
     content: '';
@@ -294,6 +296,131 @@ const GalleryItem = styled.div`
   &:hover {
     transform: scale(1.05);
   }
+`;
+
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 2rem;
+`;
+
+const ModalContent = styled.div`
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+`;
+
+const ModalHeader = styled.div`
+  padding: 1rem 2rem;
+  background: #2d5016;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ModalTitle = styled.h3`
+  margin: 0;
+  font-size: 1.5rem;
+`;
+
+const CloseButton = styled.button`
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+`;
+
+const SlideContainer = styled.div`
+  position: relative;
+  width: 600px;
+  height: 400px;
+  background: #f5f5f5;
+  
+  @media (max-width: 768px) {
+    width: 80vw;
+    height: 50vh;
+  }
+`;
+
+const SlideImage = styled.div`
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #2d5016, #4a7c23, #6b9129);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
+
+const NavigationButton = styled.button`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  
+  &.prev {
+    left: 1rem;
+  }
+  
+  &.next {
+    right: 1rem;
+  }
+`;
+
+const SlideCounter = styled.div`
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
 `;
 
 const ContactSection = styled.section`
@@ -326,6 +453,68 @@ const Footer = styled.footer`
 `;
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const galleryItems = [
+    { id: 1, title: 'Nowy Młyn', images: ['Zdjęcie 1', 'Zdjęcie 2', 'Zdjęcie 3'] },
+    { id: 2, title: 'Okoliczne krajobrazy', images: ['Krajobraz 1', 'Krajobraz 2', 'Krajobraz 3', 'Krajobraz 4'] },
+    { id: 3, title: 'Zwierzaki', images: ['Zwierzę 1', 'Zwierzę 2', 'Zwierzę 3'] },
+  ];
+
+  const [selectedGallery, setSelectedGallery] = useState<{id: number, title: string, images: string[]} | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const openModal = (galleryIndex: number) => {
+    setSelectedGallery(galleryItems[galleryIndex]);
+    setCurrentImageIndex(0);
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+    setSelectedGallery(null);
+    setCurrentImageIndex(0);
+  };
+
+  const nextImage = () => {
+    if (selectedGallery) {
+      setCurrentImageIndex((prev) => 
+        prev === selectedGallery.images.length - 1 ? 0 : prev + 1
+      );
+    }
+  };
+
+  const prevImage = () => {
+    if (selectedGallery) {
+      setCurrentImageIndex((prev) => 
+        prev === 0 ? selectedGallery.images.length - 1 : prev - 1
+      );
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (isOpen) {
+        switch (event.key) {
+          case 'Escape':
+            closeModal();
+            break;
+          case 'ArrowLeft':
+            prevImage();
+            break;
+          case 'ArrowRight':
+            nextImage();
+            break;
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, selectedGallery]);
+
   return (
     <Page>
       <Header>
@@ -382,7 +571,7 @@ export default function Home() {
               <ServiceIcon>🏠</ServiceIcon>
               <ServiceTitle>Komfortowe noclegi</ServiceTitle>
               <ServiceDescription>
-                Przytulne pokoje w klimacie wiejskim z pełnym wyposażeniem i dostępem do kuchni.
+                Przytulne pokoje w sercu puszczy Rzepińskiej z pełnym wyposażeniem i dostępem do kuchni.
               </ServiceDescription>
             </ServiceCard>
             
@@ -390,31 +579,33 @@ export default function Home() {
               <ServiceIcon>🌳</ServiceIcon>
               <ServiceTitle>Wspaniałe miejsca na spacery</ServiceTitle>
               <ServiceDescription>
-                Udział w codziennych pracach gospodarskich, karmienie zwierząt, zbiór warzyw i owoców.
+                Odkryj malownicze szlaki spacerowe i rowerowe w otoczeniu natury, idealne na relaks i aktywność.
               </ServiceDescription>
             </ServiceCard>
             
             <ServiceCard>
-              <ServiceIcon>🥕</ServiceIcon>
-              <ServiceTitle>Ekologiczne produkty</ServiceTitle>
+              <ServiceIcon>🏕️</ServiceIcon>
+              <ServiceTitle>Pole namiotowe</ServiceTitle>
               <ServiceDescription>
-                Świeże warzywa, owoce, jaja i produkty mleczne prosto z naszego gospodarstwa.
+                Oferujemy przestronne pole namiotowe w otoczeniu natury, idealne dla miłośników biwakowania.
+              </ServiceDescription>
+            </ServiceCard>
+
+            {/* TODO: Wypożyczalnia rowerów,  */}
+
+            <ServiceCard>
+              <ServiceIcon>🐕</ServiceIcon>
+              <ServiceTitle>Hotel dla psów</ServiceTitle>
+              <ServiceDescription>
+                Oferujemy komfortowy hotel dla psów, gdzie Twój pupil będzie mógł odpocząć, a Ty ze spokojną głową będziesz mógł cieszyć się czasem dla siebie.
               </ServiceDescription>
             </ServiceCard>
             
             <ServiceCard>
-              <ServiceIcon>🚴</ServiceIcon>
-              <ServiceTitle>Wypożyczalnia rowerów</ServiceTitle>
+              <ServiceIcon>🍄‍🟫</ServiceIcon>
+              <ServiceTitle>Lasy pełne grzybów</ServiceTitle>
               <ServiceDescription>
-                Zwiedzaj okolicę na rowerach i odkrywaj piękne szlaki po malowniczej okolicy.
-              </ServiceDescription>
-            </ServiceCard>
-            
-            <ServiceCard>
-              <ServiceIcon>🍯</ServiceIcon>
-              <ServiceTitle>Warsztaty kulinarne</ServiceTitle>
-              <ServiceDescription>
-                Naucz się przygotowywać tradycyjne potrawy z lokalnych, sezonowych składników.
+                W sezonie grzybobrania oferujemy wycieczki do lasów pełnych grzybów, idealne dla miłośników grzybobrania.
               </ServiceDescription>
             </ServiceCard>
             
@@ -432,15 +623,14 @@ export default function Home() {
       <Section id="gallery">
         <SectionTitle>Galeria</SectionTitle>
         <Gallery>
-          <GalleryItem>Pole z uprawami</GalleryItem>
-          <GalleryItem>Zwierzęta na pastwisku</GalleryItem>
-          <GalleryItem>Pokoje gościnne</GalleryItem>
-          <GalleryItem>Ogród warzywny</GalleryItem>
-          <GalleryItem>Sala jadalna</GalleryItem>
-          <GalleryItem>Okoliczne krajobrazy</GalleryItem>
+          {galleryItems.map((item, index) => (
+            <GalleryItem key={item.id} onClick={() => openModal(index)}>
+              {item.title}
+            </GalleryItem>
+          ))}
         </Gallery>
         <p style={{ textAlign: 'center', marginTop: '2rem', color: '#666', fontStyle: 'italic' }}>
-          * Zdjęcia będą wkrótce dodane - to są placeholdery
+          Zdjęcia przedstawiające piękno naszego gospodarstwa i okolicznych terenów.
         </p>
       </Section>
 
@@ -466,6 +656,31 @@ export default function Home() {
       <Footer>
         <p>&copy; 2025 Koło Natury Nowy Młyn. Wszystkie prawa zastrzeżone.</p>
       </Footer>
+
+      {isOpen && selectedGallery && (
+        <Modal>
+          <ModalContent>
+            <ModalHeader>
+              <ModalTitle>{selectedGallery.title}</ModalTitle>
+              <CloseButton onClick={closeModal}>&times;</CloseButton>
+            </ModalHeader>
+            <SlideContainer>
+              <SlideImage>
+                {selectedGallery.images[currentImageIndex]}
+              </SlideImage>
+              <NavigationButton className="prev" onClick={prevImage}>
+                &#10094;
+              </NavigationButton>
+              <NavigationButton className="next" onClick={nextImage}>
+                &#10095;
+              </NavigationButton>
+              <SlideCounter>
+                {currentImageIndex + 1} / {selectedGallery.images.length}
+              </SlideCounter>
+            </SlideContainer>
+          </ModalContent>
+        </Modal>
+      )}
     </Page>
   );
 }
