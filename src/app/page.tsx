@@ -1,7 +1,6 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
@@ -314,8 +313,8 @@ const Modal = styled.div`
 
 const ModalContent = styled.div`
   position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
+  max-width: 95vw;
+  max-height: 95vh;
   background: white;
   border-radius: 15px;
   overflow: hidden;
@@ -358,12 +357,22 @@ const CloseButton = styled.button`
 
 const SlideContainer = styled.div`
   position: relative;
-  width: 600px;
-  height: 400px;
+  width: 900px;
+  height: 600px;
   background: #f5f5f5;
   
+  @media (max-width: 1024px) {
+    width: 85vw;
+    height: 60vh;
+  }
+  
   @media (max-width: 768px) {
-    width: 80vw;
+    width: 90vw;
+    height: 55vh;
+  }
+  
+  @media (max-width: 480px) {
+    width: 95vw;
     height: 50vh;
   }
 `;
@@ -454,7 +463,6 @@ const Footer = styled.footer`
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
 
   const galleryItems = [
     { id: 1, title: 'Nowy Młyn', images: ['Zdjęcie 1', 'Zdjęcie 2', 'Zdjęcie 3'] },
@@ -591,7 +599,7 @@ export default function Home() {
               </ServiceDescription>
             </ServiceCard>
 
-            {/* TODO: Wypożyczalnia rowerów,  */}
+            {/* TODO: Wypożyczalnia rowerów, inne usługi, center it no matter the ammount  */}
 
             <ServiceCard>
               <ServiceIcon>🐕</ServiceIcon>
