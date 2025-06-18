@@ -387,6 +387,8 @@ const SlideImage = styled.div`
   color: white;
   font-size: 1.5rem;
   font-weight: bold;
+  position: relative;
+  overflow: hidden;
 `;
 
 const NavigationButton = styled.button`
@@ -465,9 +467,9 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
   const galleryItems = [
-    { id: 1, title: 'Nowy Młyn', images: ['Zdjęcie 1', 'Zdjęcie 2', 'Zdjęcie 3'] },
-    { id: 2, title: 'Okoliczne krajobrazy', images: ['Krajobraz 1', 'Krajobraz 2', 'Krajobraz 3', 'Krajobraz 4'] },
-    { id: 3, title: 'Zwierzaki', images: ['Zwierzę 1', 'Zwierzę 2', 'Zwierzę 3'] },
+    { id: 1, title: 'Nowy Młyn', images: ['/mlyn1.jpg', '/mlyn2.jpg', '/mlyn3.jpg'] },
+    { id: 2, title: 'Okoliczne krajobrazy', images: ['/krajobraz1.jpg', '/krajobraz2.jpg', '/krajobraz3.jpg', '/krajobraz4.jpg'] },
+    { id: 3, title: 'Zwierzaki', images: ['/zwierze1.jpg', '/zwierze2.jpg', '/zwierze3.jpg'] },
   ];
 
   const [selectedGallery, setSelectedGallery] = useState<{id: number, title: string, images: string[]} | null>(null);
@@ -674,7 +676,16 @@ export default function Home() {
             </ModalHeader>
             <SlideContainer>
               <SlideImage>
-                {selectedGallery.images[currentImageIndex]}
+                {selectedGallery.images[currentImageIndex].startsWith('/') ? (
+                  <Image
+                    src={selectedGallery.images[currentImageIndex]}
+                    alt={`${selectedGallery.title} - ${currentImageIndex + 1}`}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
+                ) : (
+                  selectedGallery.images[currentImageIndex]
+                )}
               </SlideImage>
               <NavigationButton className="prev" onClick={prevImage}>
                 &#10094;
