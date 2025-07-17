@@ -9,7 +9,7 @@ const Page = styled.div`
   min-height: 100vh;
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
-  color: #333;
+  color: #333;Ŕ
 `;
 
 const Header = styled.header`
@@ -145,7 +145,6 @@ const CTAButton = styled.button`
     transform: translateY(-50%);
     width: 20px;
     height: 20px;
-    background: url('/tiny-kolo-natury-transparent.png') no-repeat center;
     background-size: contain;
     opacity: 0.5;
   }
