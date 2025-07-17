@@ -14,11 +14,12 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Koło Natury Nowy Młyn - Agroturystyka",
-  description: "Odkryj magię prawdziwej natury w swoim sercu. Komfortowe noclegi, świeże powietrze i autentyczne doświadczenia.",
+  description:
+    "Odkryj magię prawdziwej natury w swoim sercu. Komfortowe noclegi, świeże powietrze i autentyczne doświadczenia.",
   icons: {
-    icon: 'kolo-natury-nowy-mlyn/public/tiny-kolo-natury-transparent.png',
-    shortcut: 'kolo-natury-nowy-mlyn/public/tiny-kolo-natury-transparent.png',
-    apple: 'kolo-natury-nowy-mlyn/public/tiny-kolo-natury-transparent.png',
+    icon: "kolo-natury-nowy-mlyn/public/tiny-kolo-natury-transparent.png",
+    shortcut: "kolo-natury-nowy-mlyn/public/tiny-kolo-natury-transparent.png",
+    apple: "kolo-natury-nowy-mlyn/public/tiny-kolo-natury-transparent.png",
   },
 };
 

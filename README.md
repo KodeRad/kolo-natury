@@ -16,11 +16,13 @@ This is a landing page for "Koło Natury Nowy Młyn" (Circle of Nature New Mill)
 ## 🛠️ Getting Started
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
 2. Run the development server:
+
 ```bash
 npm run dev
 ```
