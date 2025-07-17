@@ -1,58 +1,8 @@
 "use client";
 
-import styled from "@emotion/styled";
 import { useState, useEffect } from "react";
 import GalleryModal from "./GalleryModal";
-
-const Gallery = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-top: 2rem;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const GalleryItem = styled.div`
-  height: 200px;
-  background: linear-gradient(45deg, #2d5016, #4a7c23, #6b9129);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: 1.2rem;
-  transition: transform 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
-    background: url("/tiny-kolo-natury-transparent.png") no-repeat center;
-    background-size: contain;
-    opacity: 0.3;
-  }
-
-  &:hover {
-    transform: scale(1.05);
-  }
-`;
+import { Gallery, GalleryItem } from "./StyledComponents";
 
 export default function GalleryComponent() {
   const [isOpen, setIsOpen] = useState(false);
