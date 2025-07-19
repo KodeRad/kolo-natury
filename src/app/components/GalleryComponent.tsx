@@ -79,7 +79,7 @@ export default function GalleryComponent() {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, selectedGallery]);
+  }, [isOpen, selectedGallery, nextImage, prevImage]);
 
   return (
     <>

@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { SelectedGallery } from '../types';
-import { Modal, ModalContent, ModalHeader, ModalTitle, CloseButton, SlideContainer, SlideImage, NavigationButton, SlideCounter } from './StyledComponents';
+import { Modal, ModalContent, ModalHeader, CloseButton, SlideContainer, SlideImage, NavigationButton, SlideCounter } from './StyledComponents';
 
 type GalleryModalProps = {
     selectedGallery: SelectedGallery
@@ -19,7 +19,7 @@ export default function GalleryModal ({selectedGallery, closeModal, currentImage
         <Modal>
           <ModalContent>
             <ModalHeader>
-              <ModalTitle>{selectedGallery?.title}</ModalTitle>
+              {/* <ModalTitle>{selectedGallery?.title}</ModalTitle> */}
               <CloseButton onClick={closeModal}>&times;</CloseButton>
             </ModalHeader>
             <SlideContainer>

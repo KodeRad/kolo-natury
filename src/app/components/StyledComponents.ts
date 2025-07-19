@@ -18,18 +18,19 @@ export const ModalContent = styled.div`
 position: relative;
 max-width: 95vw;
 max-height: 95vh;
+height: 85vh;
 background: white;
 border-radius: 15px;
 overflow: hidden;
-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.51);
 `;
 
 export const ModalHeader = styled.div`
-padding: 1rem 2rem;
+padding: 0rem 1rem;
 background: #2d5016;
 color: white;
 display: flex;
-justify-content: space-between;
+justify-content: right;
 align-items: center;
 `;
 
